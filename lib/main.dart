@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'screens/launch_screen.dart';
 import 'screens/getting_started_screen.dart';
-import 'screens/signup_screen.dart';
 import 'screens/signup_details_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
-import 'theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +24,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LaunchScreen(),
         '/getting_started': (context) => GettingStartedScreen(),
-        '/signup': (context) => SignupScreen(),
         '/signup_details': (context) => SignupDetailsScreen(),
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),

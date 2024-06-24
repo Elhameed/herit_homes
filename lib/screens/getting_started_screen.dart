@@ -33,7 +33,7 @@ class GettingStartedScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/signup');
+                Navigator.pushNamed(context, '/signup_details');
               },
               child: Text('Sign up'),
               style: ElevatedButton.styleFrom(
