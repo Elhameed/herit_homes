@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: HomeScreen(),
+  ));
+}
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -14,9 +21,9 @@ class HomeScreen extends StatelessWidget {
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.black,
             tabs: [
-              Tab(icon: Icon(Icons.beach_access), text: "Beach"),
-              Tab(icon: Icon(Icons.terrain), text: "Mountain"),
-              Tab(icon: Icon(Icons.local_florist), text: "Camping"),
+              Tab(icon: Icon(Feather.sun), text: "Beach"),
+              Tab(icon: Icon(MaterialIcons.terrain), text: "Mountain"),
+              Tab(icon: Icon(MaterialCommunityIcons.tent), text: "Camping"),
             ],
           ),
         ),
@@ -37,23 +44,23 @@ class HomeScreen extends StatelessWidget {
           },
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(AntDesign.search1),
               label: 'Search',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border),
+              icon: Icon(Feather.heart),
               label: 'Favorites',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.book),
+              icon: Icon(MaterialIcons.book),
               label: 'Bookings',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.message),
+              icon: Icon(MaterialCommunityIcons.message),
               label: 'Inbox',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
+              icon: Icon(MaterialIcons.person_outline),
               label: 'Profile',
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'screens/launch_screen.dart';
 import 'screens/getting_started_screen.dart';
 import 'screens/signup_details_screen.dart';
@@ -15,6 +16,8 @@ import 'screens/house_details_screen.dart';
 import 'screens/checkout_screen.dart';
 import 'screens/reviews_screen.dart';
 import 'screens/payment_screen.dart';
+import 'screens/facilities_screen.dart';
+import 'screens/description_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,6 +51,8 @@ class MyApp extends StatelessWidget {
         '/Confirm_and_Pay': (context) => ConfirmAndPayScreen(),
         '/reviews': (context) => ReviewsScreen(),
         '/payment_success': (context) => PaymentSuccessScreen(),
+        '/facilities': (context) => FacilitiesScreen(),
+        '/description': (context) => DescriptionScreen(),
       },
     );
   }
