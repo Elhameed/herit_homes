@@ -55,20 +55,20 @@ class SearchScreen extends StatelessWidget {
                   },
                   child: Column(
                     children: [
-                      Image.asset('assets/nigeria.png', width: 200, height: 200), // Ensure you have the image in the assets
+                      Image.asset('assets/nigeria.png', width: 100, height: 100), // Ensure you have the image in the assets
                       Text('Nigeria'),
                     ],
                   ),
                 ),
                 Column(
                   children: [
-                    Image.asset('assets/rwanda.png', width: 200, height: 200), // Ensure you have the image in the assets
+                    Image.asset('assets/rwanda.png', width: 100, height: 100), // Ensure you have the image in the assets
                     Text('Rwanda'),
                   ],
                 ),
                 Column(
                   children: [
-                    Image.asset('assets/kenya.png', width: 200, height: 200), // Ensure you have the image in the assets
+                    Image.asset('assets/kenya.png', width: 100, height: 100), // Ensure you have the image in the assets
                     Text('Kenya'),
                   ],
                 ),
@@ -83,7 +83,7 @@ class SearchScreen extends StatelessWidget {
               ),
               readOnly: true,
               onTap: () {
-                // Open date picker
+                Navigator.pushNamed(context, '/select_time_range');
               },
             ),
             SizedBox(height: 20),
@@ -95,7 +95,7 @@ class SearchScreen extends StatelessWidget {
               ),
               readOnly: true,
               onTap: () {
-                // Open guests selection
+                Navigator.pushNamed(context, '/add_guests');
               },
             ),
             Spacer(),
