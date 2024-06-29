@@ -70,7 +70,7 @@ class AccommodationList extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       children: <Widget>[
         AccommodationCard(
-          imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCTxGVtzFCKs7Oo7AUdqaBEJUjGdCHgZA0LXFtuxobLY2JY46A',
+          imageUrl: 'assets/nigeria-apartment.png',
           title: 'Apartment in Nigeria',
           location: 'Beach',
           price: '\$40/night',
@@ -78,7 +78,7 @@ class AccommodationList extends StatelessWidget {
         ),
         SizedBox(height: 10),
         AccommodationCard(
-          imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnaze1lMZ32ryMv5EMDEBHCXaX0A5RYpw-x2lBLEQTV2SPtrhI',
+          imageUrl: 'assets/rwanda-apartment.png',
           title: 'Apartment in Rwanda',
           location: 'Beach',
           price: '\$32/night',

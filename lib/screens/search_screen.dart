@@ -49,8 +49,8 @@ class SearchScreen extends StatelessWidget {
             Expanded(
               child: GridView.count(
                 crossAxisCount: 3,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4,
                 children: [
                   GestureDetector(
                     onTap: () {
@@ -67,7 +67,7 @@ class SearchScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8),
+                        SizedBox(height: 4),
                         Text('Nigeria'),
                       ],
                     ),
@@ -83,7 +83,7 @@ class SearchScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 4),
                       Text('Rwanda'),
                     ],
                   ),
@@ -98,7 +98,7 @@ class SearchScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 4),
                       Text('Kenya'),
                     ],
                   ),
