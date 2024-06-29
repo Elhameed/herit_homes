@@ -128,7 +128,9 @@ class _AddGuestsScreenState extends State<AddGuestsScreen> {
                   child: Text('Clear all'),
                 ),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/filter_type_of_place');
+                  },
                   icon: Icon(Icons.search),
                   label: Text('Search'),
                   style: ElevatedButton.styleFrom(
