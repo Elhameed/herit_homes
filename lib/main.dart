@@ -9,6 +9,9 @@ import 'screens/location_details_screen.dart';
 import 'screens/location_detail_view.dart';
 import 'screens/select_time_range_screen.dart';
 import 'screens/add_guests_screen.dart';
+import 'screens/checkout_screen.dart' ;
+import 'screens/reviews_screen.dart' ;
+import 'screens/payment_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,6 +40,11 @@ class MyApp extends StatelessWidget {
         '/location_detail_view': (context) => LocationDetailView(),
         '/select_time_range': (context) => SelectTimeRangeScreen(),
         '/add_guests': (context) => AddGuestsScreen(),
+        '/Confirm_and_Pay': (context) => ConfirmAndPayScreen(),
+        '/reviews': (context) => ReviewsScreen(),
+        '/payment_success': (context) => PaymentSuccessScreen(),
+
+
       },
     );
   }
