@@ -1,77 +1,122 @@
 import 'package:flutter/material.dart';
 
-class FilterFacilitiesScreen extends StatelessWidget {
+class FiltersFacilitiesScreen extends StatefulWidget {
+  @override
+  _FiltersFacilitiesScreenState createState() => _FiltersFacilitiesScreenState();
+}
+
+class _FiltersFacilitiesScreenState extends State<FiltersFacilitiesScreen> {
+  int _bedrooms = 0;
+  int _beds = 0;
+  int _bathrooms = 0;
+  bool _kitchen = true;
+  bool _pool = false;
+  bool _gym = false;
+  bool _outdoorSpace = true;
+  bool _internetAccess = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Filters'),
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.close, color: Colors.black),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: Text('Filters', style: TextStyle(color: Colors.black)),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             Text(
               'Rooms and beds',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Bedrooms'),
+                Text('Bedrooms', style: TextStyle(fontSize: 18)),
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          if (_bedrooms > 0) _bedrooms--;
+                        });
+                      },
+                      icon: Icon(Icons.remove, color: Colors.grey),
                     ),
-                    Text('Any'),
+                    Text(_bedrooms == 0 ? 'Any' : _bedrooms.toString(), style: TextStyle(fontSize: 18)),
                     IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _bedrooms++;
+                        });
+                      },
+                      icon: Icon(Icons.add, color: Colors.grey),
                     ),
                   ],
                 ),
               ],
             ),
+            Divider(height: 1, color: Colors.grey),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Beds'),
+                Text('Beds', style: TextStyle(fontSize: 18)),
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          if (_beds > 0) _beds--;
+                        });
+                      },
+                      icon: Icon(Icons.remove, color: Colors.grey),
                     ),
-                    Text('Any'),
+                    Text(_beds == 0 ? 'Any' : _beds.toString(), style: TextStyle(fontSize: 18)),
                     IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _beds++;
+                        });
+                      },
+                      icon: Icon(Icons.add, color: Colors.grey),
                     ),
                   ],
                 ),
               ],
             ),
+            Divider(height: 1, color: Colors.grey),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Bathrooms'),
+                Text('Bathrooms', style: TextStyle(fontSize: 18)),
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          if (_bathrooms > 0) _bathrooms--;
+                        });
+                      },
+                      icon: Icon(Icons.remove, color: Colors.grey),
                     ),
-                    Text('Any'),
+                    Text(_bathrooms == 0 ? 'Any' : _bathrooms.toString(), style: TextStyle(fontSize: 18)),
                     IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _bathrooms++;
+                        });
+                      },
+                      icon: Icon(Icons.add, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -82,38 +127,68 @@ class FilterFacilitiesScreen extends StatelessWidget {
               'Facilities',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
             CheckboxListTile(
               title: Text('Kitchen'),
-              value: true,
-              onChanged: (value) {},
+              value: _kitchen,
+              onChanged: (bool? value) {
+                setState(() {
+                  _kitchen = value ?? false;
+                });
+              },
             ),
             CheckboxListTile(
               title: Text('Pool'),
-              value: false,
-              onChanged: (value) {},
+              value: _pool,
+              onChanged: (bool? value) {
+                setState(() {
+                  _pool = value ?? false;
+                });
+              },
             ),
             CheckboxListTile(
               title: Text('Gym'),
-              value: false,
-              onChanged: (value) {},
+              value: _gym,
+              onChanged: (bool? value) {
+                setState(() {
+                  _gym = value ?? false;
+                });
+              },
             ),
             CheckboxListTile(
               title: Text('Outdoor space'),
-              value: true,
-              onChanged: (value) {},
+              value: _outdoorSpace,
+              onChanged: (bool? value) {
+                setState(() {
+                  _outdoorSpace = value ?? false;
+                });
+              },
             ),
             CheckboxListTile(
               title: Text('Internet access'),
-              value: true,
-              onChanged: (value) {},
+              value: _internetAccess,
+              onChanged: (bool? value) {
+                setState(() {
+                  _internetAccess = value ?? false;
+                });
+              },
             ),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _bedrooms = 0;
+                      _beds = 0;
+                      _bathrooms = 0;
+                      _kitchen = false;
+                      _pool = false;
+                      _gym = false;
+                      _outdoorSpace = false;
+                      _internetAccess = false;
+                    });
+                  },
                   child: Text('Clear all'),
                 ),
                 ElevatedButton(
