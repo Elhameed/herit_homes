@@ -30,6 +30,11 @@ class HomeScreen extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.purple,
           unselectedItemColor: Colors.grey,
+          onTap: (index) {
+            if (index == 0) {
+              Navigator.pushNamed(context, '/search');
+            }
+          },
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.search),

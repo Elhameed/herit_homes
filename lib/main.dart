@@ -4,6 +4,11 @@ import 'screens/getting_started_screen.dart';
 import 'screens/signup_details_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/search_screen.dart';
+import 'screens/location_details_screen.dart';
+import 'screens/location_detail_view.dart';
+import 'screens/select_time_range_screen.dart';
+import 'screens/add_guests_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +32,11 @@ class MyApp extends StatelessWidget {
         '/signup_details': (context) => SignupDetailsScreen(),
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
+        '/search': (context) => SearchScreen(),
+        '/location_details': (context) => LocationDetailsScreen(),
+        '/location_detail_view': (context) => LocationDetailView(),
+        '/select_time_range': (context) => SelectTimeRangeScreen(),
+        '/add_guests': (context) => AddGuestsScreen(),
       },
     );
   }
