@@ -42,7 +42,7 @@ class LocationDetailView extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
-                  image: AssetImage('assets/nigeria_image1.png'), // Ensure you have the image in the assets
+                  image: AssetImage('assets/nigeria_image1.png'),
                   fit: BoxFit.cover,
                 ),
               ),

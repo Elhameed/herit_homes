@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class AddGuestsScreen extends StatelessWidget {
+class AddGuestsScreen extends StatefulWidget {
+  @override
+  _AddGuestsScreenState createState() => _AddGuestsScreenState();
+}
+
+class _AddGuestsScreenState extends State<AddGuestsScreen> {
+  int adults = 0;
+  int children = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Guests'),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
@@ -55,17 +62,25 @@ class AddGuestsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Adults'),
+                Text('Adults', style: TextStyle(fontSize: 18)),
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.remove),
+                      onPressed: () {
+                        setState(() {
+                          if (adults > 0) adults--;
+                        });
+                      },
+                      icon: Icon(Icons.remove, color: Colors.grey),
                     ),
-                    Text('0'),
+                    Text(adults.toString(), style: TextStyle(fontSize: 18)),
                     IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        setState(() {
+                          adults++;
+                        });
+                      },
+                      icon: Icon(Icons.add, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -75,17 +90,25 @@ class AddGuestsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Children'),
+                Text('Children', style: TextStyle(fontSize: 18)),
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.remove),
+                      onPressed: () {
+                        setState(() {
+                          if (children > 0) children--;
+                        });
+                      },
+                      icon: Icon(Icons.remove, color: Colors.grey),
                     ),
-                    Text('0'),
+                    Text(children.toString(), style: TextStyle(fontSize: 18)),
                     IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        setState(() {
+                          children++;
+                        });
+                      },
+                      icon: Icon(Icons.add, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -96,7 +119,12 @@ class AddGuestsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      adults = 0;
+                      children = 0;
+                    });
+                  },
                   child: Text('Clear all'),
                 ),
                 ElevatedButton.icon(

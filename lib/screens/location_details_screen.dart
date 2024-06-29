@@ -43,7 +43,7 @@ class LocationDetailsScreen extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/nigeria_image1.png'), // Ensure you have the image in the assets
+                          image: AssetImage('assets/nigeria_image1.png'),
                           fit: BoxFit.cover,
                         ),
                         borderRadius: BorderRadius.circular(8),
@@ -53,7 +53,7 @@ class LocationDetailsScreen extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image2.png'), // Ensure you have the image in the assets
+                        image: AssetImage('assets/nigeria_image2.png'), 
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(8),
@@ -62,7 +62,7 @@ class LocationDetailsScreen extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image3.png'), // Ensure you have the image in the assets
+                        image: AssetImage('assets/nigeria_image3.png'), 
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(8),
@@ -71,7 +71,15 @@ class LocationDetailsScreen extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image4.png'), // Ensure you have the image in the assets
+                        image: AssetImage('assets/nigeria_image4.png'),
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/nigeria_image5.png'), 
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(8),
@@ -80,16 +88,7 @@ class LocationDetailsScreen extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image5.png'), // Ensure you have the image in the assets
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image6.png'), // Ensure you have the image in the assets
+                        image: AssetImage('assets/nigeria_image6.png'), 
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(8),
