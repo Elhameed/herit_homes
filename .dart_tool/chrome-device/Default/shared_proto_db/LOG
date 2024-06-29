@@ -1,4 +1,7 @@
-2024/06/29-11:10:34.289 1a1d59 Reusing MANIFEST /tmp/flutter_tools.QOSXIF/flutter_tools_chrome_device.AMXZED/Default/shared_proto_db/MANIFEST-000001
-2024/06/29-11:10:34.289 1a1d59 Recovering log #4
-2024/06/29-11:10:34.290 1a1d59 Reusing old log /tmp/flutter_tools.QOSXIF/flutter_tools_chrome_device.AMXZED/Default/shared_proto_db/000004.log 
-2024/06/29-11:10:34.290 1a1d59 Delete type=0 #3
+2024/06/29-11:18:13.256 1a2500 Reusing MANIFEST /tmp/flutter_tools.CHEZTT/flutter_tools_chrome_device.MEYLPN/Default/shared_proto_db/MANIFEST-000001
+2024/06/29-11:18:13.256 1a2500 Recovering log #4
+2024/06/29-11:18:13.258 1a2500 Reusing old log /tmp/flutter_tools.CHEZTT/flutter_tools_chrome_device.MEYLPN/Default/shared_proto_db/000004.log 
+2024/06/29-11:18:13.258 1a2500 Delete type=0 #3
+2024/06/29-11:18:29.255 1a250b Level-0 table #8: started
+2024/06/29-11:18:29.422 1a250b Level-0 table #8: 119300 bytes OK
+2024/06/29-11:18:29.644 1a250b Delete type=0 #4

@@ -46,33 +46,64 @@ class SearchScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/location_details');
-                  },
-                  child: Column(
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 3,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/location_details');
+                    },
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.asset(
+                              'assets/nigeria.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text('Nigeria'),
+                      ],
+                    ),
+                  ),
+                  Column(
                     children: [
-                      Image.asset('assets/nigeria.png', width: 100, height: 100), // Ensure you have the image in the assets
-                      Text('Nigeria'),
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            'assets/rwanda.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text('Rwanda'),
                     ],
                   ),
-                ),
-                Column(
-                  children: [
-                    Image.asset('assets/rwanda.png', width: 100, height: 100), // Ensure you have the image in the assets
-                    Text('Rwanda'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Image.asset('assets/kenya.png', width: 100, height: 100), // Ensure you have the image in the assets
-                    Text('Kenya'),
-                  ],
-                ),
-              ],
+                  Column(
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            'assets/kenya.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text('Kenya'),
+                    ],
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 20),
             TextField(
