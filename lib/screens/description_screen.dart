@@ -18,7 +18,7 @@ class DescriptionScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         children: <Widget>[
           Image.network(
-            'https://yourimageurl.com/image.png',
+            'assets/description.png',
             height: 200,
             fit: BoxFit.cover,
           ),

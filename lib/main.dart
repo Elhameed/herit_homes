@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'screens/launch_screen.dart';
 import 'screens/getting_started_screen.dart';
 import 'screens/signup_details_screen.dart';
@@ -32,6 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'Herithomes',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
       ),
       initialRoute: '/',
       routes: {

@@ -95,7 +95,9 @@ class ConfirmAndPayScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/payment_success');
+              },
               child: Text('Book now'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

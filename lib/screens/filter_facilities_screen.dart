@@ -192,7 +192,9 @@ class _FiltersFacilitiesScreenState extends State<FiltersFacilitiesScreen> {
                   child: Text('Clear all'),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/house_details');
+                  },
                   child: Text('View Results'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,

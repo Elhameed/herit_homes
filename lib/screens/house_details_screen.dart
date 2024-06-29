@@ -126,7 +126,9 @@ class HouseDetailsScreen extends StatelessWidget {
                 ],
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                Navigator.pushNamed(context, '/facilities');
+              },
                 child: Text('Show all', style: TextStyle(color: Colors.blue)),
               ),
               Divider(),
@@ -167,7 +169,9 @@ class HouseDetailsScreen extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/reviews');
+                },
                 child: Text('See all', style: TextStyle(color: Colors.blue)),
               ),
               Divider(),
@@ -248,7 +252,9 @@ class HouseDetailsScreen extends StatelessWidget {
               ),
               SizedBox(height: 16),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/description');
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -266,7 +272,9 @@ class HouseDetailsScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/Confirm_and_Pay');
+                    },
                     child: Text('Book now'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,

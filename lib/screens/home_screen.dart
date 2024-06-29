@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.purple,
           bottom: TabBar(
             labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
