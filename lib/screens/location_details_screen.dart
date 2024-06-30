@@ -72,6 +72,7 @@ class LocationDetailsScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/nigeria_image4.png'),
+                        fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),

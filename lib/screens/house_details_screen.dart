@@ -143,7 +143,7 @@ class HouseDetailsScreen extends StatelessWidget {
                 ],
               ),
               ListTile(
-                leading: CircleAvatar(backgroundImage: NetworkImage('https://via.placeholder.com/50')),
+                leading: CircleAvatar(backgroundImage: NetworkImage('assets/edwards.png')),
                 title: Text('Jimmy Osin'),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,7 +156,7 @@ class HouseDetailsScreen extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: CircleAvatar(backgroundImage: NetworkImage('https://via.placeholder.com/50')),
+                leading: CircleAvatar(backgroundImage: NetworkImage('assets/christy.png')),
                 title: Text('Chris Doe'),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

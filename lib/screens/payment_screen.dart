@@ -5,8 +5,8 @@ class PaymentSuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Herithomes'),
-        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -14,10 +14,9 @@ class PaymentSuccessScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.check_circle,
-                color: Colors.green,
-                size: 100,
+              SizedBox(
+                height: 100,
+                child: Image.asset('assets/success.png'), 
               ),
               SizedBox(height: 20),
               Text(
@@ -25,20 +24,33 @@ class PaymentSuccessScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
-              InfoRow(label: 'Ref number', value: '00000072697027'),
-              InfoRow(label: 'Date', value: '09-05-2023'),
-              InfoRow(label: 'Time', value: '05:40 AM'),
-              InfoRow(label: 'Payment method', value: 'Credit card'),
-              InfoRow(label: 'Amount', value: '\$30'),
+              Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      InfoRow(label: 'Ref number', value: '00000072697027'),
+                      InfoRow(label: 'Date', value: '09-05-2023'),
+                      InfoRow(label: 'Time', value: '05:40 AM'),
+                      InfoRow(label: 'Payment method', value: 'Credit card'),
+                      InfoRow(label: 'Amount', value: '\$30'),
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to the booking details screen or perform the desired action
+                  Navigator.pushNamed(context, '/Confirm_and_Pay');
                 },
                 child: Text('View booking'),
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   textStyle: TextStyle(fontSize: 16),
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
                 ),
               ),
             ],

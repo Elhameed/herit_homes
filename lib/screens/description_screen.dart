@@ -5,6 +5,8 @@ class DescriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Description', style: TextStyle(color: Colors.black)),
+        centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -17,7 +19,7 @@ class DescriptionScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: <Widget>[
-          Image.network(
+          Image.asset(
             'assets/description.png',
             height: 200,
             fit: BoxFit.cover,
@@ -46,28 +48,50 @@ class DescriptionScreen extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16),
-          Text(
-            'Consectetur magna consectetur',
-            style: TextStyle(fontSize: 16),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Voluptate magna fugiat tempor incididunt',
-            style: TextStyle(fontSize: 16),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Aliqua in in mollit laboris tempor in ut incididunt',
-            style: TextStyle(fontSize: 16),
+          Column(
+            children: <Widget>[
+              Row(
+                children: [
+                  Icon(Icons.check, color: Colors.black),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Consectetur magna consectetur',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Icon(Icons.check, color: Colors.black),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Voluptate magna fugiat tempor incididunt',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Icon(Icons.check, color: Colors.black),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Aliqua in in mollit laboris tempor in ut incididunt',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: DescriptionScreen(),
-  ));
 }
