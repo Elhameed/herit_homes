@@ -31,7 +31,7 @@ class HouseDetailsScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   image: DecorationImage(
-                    image: NetworkImage('assets/home_details.png'),
+                    image: AssetImage('assets/home_details.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -52,12 +52,14 @@ class HouseDetailsScreen extends StatelessWidget {
                     children: [
                       Icon(Icons.star, color: Colors.yellow),
                       Text('4.5/5'),
-                      Text(' • 262 reviews', style: TextStyle(color: Colors.grey)),
+                      Text(' • 262 reviews',
+                          style: TextStyle(color: Colors.grey)),
                     ],
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: Text('View map', style: TextStyle(color: Colors.blue)),
+                    child:
+                        Text('View map', style: TextStyle(color: Colors.blue)),
                   ),
                 ],
               ),
@@ -127,8 +129,8 @@ class HouseDetailsScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                Navigator.pushNamed(context, '/facilities');
-              },
+                  Navigator.pushNamed(context, '/facilities');
+                },
                 child: Text('Show all', style: TextStyle(color: Colors.blue)),
               ),
               Divider(),
@@ -143,28 +145,38 @@ class HouseDetailsScreen extends StatelessWidget {
                 ],
               ),
               ListTile(
-                leading: CircleAvatar(backgroundImage: NetworkImage('assets/edwards.png')),
+                leading: CircleAvatar(
+                    backgroundImage: AssetImage('assets/edwards.png')),
                 title: Text('Jimmy Osin'),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children: List.generate(5, (index) => Icon(Icons.star, color: Colors.yellow, size: 16)),
+                      children: List.generate(
+                          5,
+                          (index) =>
+                              Icon(Icons.star, color: Colors.yellow, size: 16)),
                     ),
-                    Text('The location was perfect. The house was spacious and clean, and the amenities...'),
+                    Text(
+                        'The location was perfect. The house was spacious and clean, and the amenities...'),
                   ],
                 ),
               ),
               ListTile(
-                leading: CircleAvatar(backgroundImage: NetworkImage('assets/christy.png')),
+                leading: CircleAvatar(
+                    backgroundImage: AssetImage('assets/christy.png')),
                 title: Text('Chris Doe'),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children: List.generate(5, (index) => Icon(Icons.star, color: Colors.yellow, size: 16)),
+                      children: List.generate(
+                          5,
+                          (index) =>
+                              Icon(Icons.star, color: Colors.yellow, size: 16)),
                     ),
-                    Text('We loved staying here! The place had all the necessary facilities...'),
+                    Text(
+                        'We loved staying here! The place had all the necessary facilities...'),
                   ],
                 ),
               ),
@@ -190,14 +202,16 @@ class HouseDetailsScreen extends StatelessWidget {
                   children: [
                     Text(
                       'House rules',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8),
                     Row(
                       children: [
                         Icon(Icons.access_time, size: 16),
                         SizedBox(width: 8),
-                        Text('Earliest check-in time: 14:00', style: TextStyle(fontSize: 14)),
+                        Text('Earliest check-in time: 14:00',
+                            style: TextStyle(fontSize: 14)),
                       ],
                     ),
                     SizedBox(height: 4),
@@ -205,7 +219,8 @@ class HouseDetailsScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.access_time, size: 16),
                         SizedBox(width: 8),
-                        Text('Latest check-out time: 12:00', style: TextStyle(fontSize: 14)),
+                        Text('Latest check-out time: 12:00',
+                            style: TextStyle(fontSize: 14)),
                       ],
                     ),
                   ],
@@ -241,15 +256,15 @@ class HouseDetailsScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   image: DecorationImage(
-                    image: NetworkImage('assets/description.png'), // Replace with actual image URL
+                    image: AssetImage(
+                        'assets/description.png'), // Replace with actual image URL
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               SizedBox(height: 16),
               Text(
-                'Looking for the perfect place to relax and unwind? This stunning Balinese villa is the ultimate tropical getaway. Located on a quiet street just minutes from the beach, this...'
-              ),
+                  'Looking for the perfect place to relax and unwind? This stunning Balinese villa is the ultimate tropical getaway. Located on a quiet street just minutes from the beach, this...'),
               SizedBox(height: 16),
               TextButton(
                 onPressed: () {
