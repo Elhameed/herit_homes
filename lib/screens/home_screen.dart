@@ -122,7 +122,7 @@ class AccommodationCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Image.network(imageUrl, fit: BoxFit.cover, width: double.infinity),
+          Image.asset(imageUrl, fit: BoxFit.cover, width: double.infinity),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
