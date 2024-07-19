@@ -17,8 +17,12 @@ import 'screens/reviews_screen.dart';
 import 'screens/payment_screen.dart';
 import 'screens/facilities_screen.dart';
 import 'screens/description_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

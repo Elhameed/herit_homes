@@ -1,8 +1,8 @@
-#Sun Jun 30 15:05:25 CEST 2024
-base.0=E\:\\Repo\\herit_homes-1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=E\:\\Repo\\herit_homes-1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=E\:\\Repo\\herit_homes-1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.3=E\:\\Repo\\herit_homes-1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\6\\classes.dex
+#Fri Jul 19 17:13:10 CEST 2024
+base.0=C\:\\Users\\1\\OneDrive\\Documents\\Repository\\herit\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=C\:\\Users\\1\\OneDrive\\Documents\\Repository\\herit\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=C\:\\Users\\1\\OneDrive\\Documents\\Repository\\herit\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.3=C\:\\Users\\1\\OneDrive\\Documents\\Repository\\herit\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\6\\classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=1/classes.dex
