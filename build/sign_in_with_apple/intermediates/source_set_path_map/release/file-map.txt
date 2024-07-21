@@ -1,0 +1,13 @@
+com.aboutyou.dart_packages.sign_in_with_apple-browser-1.5.0-0 C:\Users\1\.gradle\caches\transforms-3\0b4a8416aa8ab7c08a86dc220f81e542\transformed\browser-1.5.0\res
+com.aboutyou.dart_packages.sign_in_with_apple-core-1.6.0-1 C:\Users\1\.gradle\caches\transforms-3\1227bb32d338e358eff4c5bf5b08270c\transformed\core-1.6.0\res
+com.aboutyou.dart_packages.sign_in_with_apple-jetified-window-1.0.0-beta04-2 C:\Users\1\.gradle\caches\transforms-3\1f063c91a907141588f51f373b1f5f4a\transformed\jetified-window-1.0.0-beta04\res
+com.aboutyou.dart_packages.sign_in_with_apple-jetified-window-java-1.0.0-beta04-3 C:\Users\1\.gradle\caches\transforms-3\6d2f8042b989e9f02a2914d91ea7c64c\transformed\jetified-window-java-1.0.0-beta04\res
+com.aboutyou.dart_packages.sign_in_with_apple-jetified-annotation-experimental-1.1.0-4 C:\Users\1\.gradle\caches\transforms-3\a15c6353ebee292a754ca976f2ce177d\transformed\jetified-annotation-experimental-1.1.0\res
+com.aboutyou.dart_packages.sign_in_with_apple-main-5 C:\Users\1\AppData\Local\Pub\Cache\hosted\pub.dev\sign_in_with_apple-6.1.1\android\src\main\res
+com.aboutyou.dart_packages.sign_in_with_apple-release-6 C:\Users\1\AppData\Local\Pub\Cache\hosted\pub.dev\sign_in_with_apple-6.1.1\android\src\release\res
+com.aboutyou.dart_packages.sign_in_with_apple-pngs-7 C:\Users\1\OneDrive\Documents\Repository\herit\build\sign_in_with_apple\generated\res\pngs\release
+com.aboutyou.dart_packages.sign_in_with_apple-resValues-8 C:\Users\1\OneDrive\Documents\Repository\herit\build\sign_in_with_apple\generated\res\resValues\release
+com.aboutyou.dart_packages.sign_in_with_apple-rs-9 C:\Users\1\OneDrive\Documents\Repository\herit\build\sign_in_with_apple\generated\res\rs\release
+com.aboutyou.dart_packages.sign_in_with_apple-mergeReleaseResources-10 C:\Users\1\OneDrive\Documents\Repository\herit\build\sign_in_with_apple\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.aboutyou.dart_packages.sign_in_with_apple-mergeReleaseResources-11 C:\Users\1\OneDrive\Documents\Repository\herit\build\sign_in_with_apple\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.aboutyou.dart_packages.sign_in_with_apple-merged_res-12 C:\Users\1\OneDrive\Documents\Repository\herit\build\sign_in_with_apple\intermediates\merged_res\release

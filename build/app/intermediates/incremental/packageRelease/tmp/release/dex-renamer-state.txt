@@ -1,0 +1,4 @@
+#Sun Jul 21 23:03:34 CEST 2024
+base.0=C\:\\Users\\1\\OneDrive\\Documents\\Repository\\herit\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

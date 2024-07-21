@@ -1,6 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
+import './add_guests_screen.dart'; // Make sure this path is correct for your project structure
 
-class SelectTimeRangeScreen extends StatelessWidget {
+class SelectTimeRangeScreen extends StatefulWidget {
+  final String location;
+
+  SelectTimeRangeScreen({Key? key, required this.location}) : super(key: key);
+
+  @override
+  _SelectTimeRangeScreenState createState() => _SelectTimeRangeScreenState();
+}
+
+class _SelectTimeRangeScreenState extends State<SelectTimeRangeScreen> {
+  DateTime? startDate;
+  DateTime? endDate;
+  CalendarFormat _calendarFormat =
+      CalendarFormat.month; // Default to month view
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    setState(() {
+      if (startDate == null || endDate != null) {
+        startDate = selectedDay;
+        endDate = null;
+      } else if (endDate == null) {
+        endDate = selectedDay;
+        if (startDate!.isAfter(endDate!)) {
+          DateTime temp = startDate!;
+          startDate = endDate;
+          endDate = temp;
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,80 +48,46 @@ class SelectTimeRangeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  labelText: 'Location',
-                ),
-                controller: TextEditingController(text: 'Nigeria'),
-                readOnly: true,
+            SizedBox(height: 20),
+            TextField(
+              decoration: InputDecoration(
+                labelText: '${widget.location}',
+                labelStyle: TextStyle(color: Colors.black),
+                border: const OutlineInputBorder(),
+                suffixIcon: Icon(Icons.location_on),
               ),
             ),
             SizedBox(height: 20),
-            Text(
-              'When staying',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
+            TableCalendar(
+              firstDay: DateTime.utc(2024, 1, 1),
+              lastDay: DateTime.utc(2044, 12, 31),
+              focusedDay: DateTime.now(),
+              calendarFormat: _calendarFormat,
+              selectedDayPredicate: (day) {
+                if (startDate == null) {
+                  return false;
+                }
+                if (endDate == null) {
+                  return day.isAtSameMomentAs(startDate!);
+                }
+                return day.isAtSameMomentAs(startDate!) ||
+                    day.isAtSameMomentAs(endDate!) ||
+                    (day.isAfter(startDate!) && day.isBefore(endDate!));
+              },
+              onDaySelected: _onDaySelected,
+              calendarStyle: CalendarStyle(
+                rangeHighlightColor: Colors.purple,
+                rangeStartDecoration:
+                    BoxDecoration(color: Colors.purple, shape: BoxShape.circle),
+                rangeEndDecoration:
+                    BoxDecoration(color: Colors.purple, shape: BoxShape.circle),
+                withinRangeDecoration:
+                    BoxDecoration(color: Colors.purple.withOpacity(0.5)),
+                defaultTextStyle: TextStyle(color: Colors.black),
               ),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text('Choose dates'),
-                    trailing: Icon(Icons.arrow_drop_down),
-                  ),
-                  Divider(height: 1, color: Colors.grey),
-                  Container(
-                    height: 300,
-                    child: CalendarDatePicker(
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2022),
-                      lastDate: DateTime(2025),
-                      onDateChanged: (date) {},
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('-'),
-                      SizedBox(width: 20),
-                      Text('1 days'),
-                      SizedBox(width: 20),
-                      Text('+'),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: Text('Skip'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/add_guests');
-                        },
-                        child: Text('Next'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.white,
-                          minimumSize: Size(100, 50),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              headerStyle: HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: true,
               ),
             ),
             Spacer(),
@@ -96,17 +95,43 @@ class SelectTimeRangeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  onPressed: () {},
-                  child: Text('Clear all'),
+                  onPressed: () {
+                    setState(() {
+                      startDate = null;
+                      endDate = null;
+                    });
+                  },
+                  child: Text('Clear selection'),
                 ),
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.search),
-                  label: Text('Search'),
+                ElevatedButton(
+                  onPressed: () {
+                    if (startDate != null && endDate != null) {
+                      String formattedDateRange =
+                          '${DateFormat('yyyy-MM-dd').format(startDate!)} to ${DateFormat('yyyy-MM-dd').format(endDate!)}';
+                      // Navigate to AddGuestsScreen with selected dates and location
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddGuestsScreen(
+                            dateRange: formattedDateRange,
+                            location: widget.location,
+                          ),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please select a start and end date.'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  },
+                  child: Text('Confirm Dates'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     foregroundColor: Colors.white,
-                    minimumSize: Size(150, 50),
+                    minimumSize: Size(100, 50),
                   ),
                 ),
               ],

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class AddGuestsScreen extends StatefulWidget {
+  final String dateRange;
+  final String location;
+
+  AddGuestsScreen({Key? key, required this.dateRange, required this.location})
+      : super(key: key);
+
   @override
   _AddGuestsScreenState createState() => _AddGuestsScreenState();
 }
 
 class _AddGuestsScreenState extends State<AddGuestsScreen> {
-  int adults = 0;
+  int adults = 1;
   int children = 0;
 
   @override
@@ -14,43 +20,31 @@ class _AddGuestsScreenState extends State<AddGuestsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
+        title: Text("Add Guests"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  labelText: 'Location',
-                ),
-                controller: TextEditingController(text: 'Nigeria'),
-                readOnly: true,
+            SizedBox(height: 20),
+            TextField(
+              decoration: InputDecoration(
+                labelText: '${widget.location}',
+                labelStyle: TextStyle(color: Colors.black),
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.location_on),
               ),
             ),
             SizedBox(height: 20),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  labelText: 'Dates',
-                ),
-                controller: TextEditingController(text: '23 - 31 May'),
-                readOnly: true,
+            TextField(
+              decoration: InputDecoration(
+                labelText: '${widget.dateRange}',
+                labelStyle: TextStyle(color: Colors.black, fontSize: 16),
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.calendar_today),
               ),
             ),
             SizedBox(height: 20),
@@ -127,16 +121,22 @@ class _AddGuestsScreenState extends State<AddGuestsScreen> {
                   },
                   child: Text('Clear all'),
                 ),
-                ElevatedButton.icon(
+                ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/filter_type_of_place');
+                    // Navigate to the next step or confirm the booking details
+                    Navigator.pushNamed(context, '/filter_type_of_place',
+                        arguments: {
+                          'location': widget.location,
+                          'dateRange': widget.dateRange,
+                          'adults': adults,
+                          'children': children
+                        });
                   },
-                  icon: Icon(Icons.search),
-                  label: Text('Search'),
+                  child: Text('Next'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     foregroundColor: Colors.white,
-                    minimumSize: Size(150, 50),
+                    minimumSize: Size(100, 50),
                   ),
                 ),
               ],

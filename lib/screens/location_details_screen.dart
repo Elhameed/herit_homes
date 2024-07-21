@@ -35,67 +35,10 @@ class LocationDetailsScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/location_detail_view');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/nigeria_image1.png'),
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image2.png'), 
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image3.png'), 
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image4.png'),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image5.png'), 
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/nigeria_image6.png'), 
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ],
+                children: List.generate(
+                    6,
+                    (index) => ImageTile(
+                        imagePath: 'assets/nigeria_image${index + 1}.png')),
               ),
             ),
             SizedBox(height: 20),
@@ -122,5 +65,69 @@ class LocationDetailsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class ImageTile extends StatefulWidget {
+  final String imagePath;
+
+  ImageTile({required this.imagePath});
+
+  @override
+  _ImageTileState createState() => _ImageTileState();
+}
+
+class _ImageTileState extends State<ImageTile> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => _handleHover(true),
+      onExit: (_) => _handleHover(false),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/location_detail_view');
+        },
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                widget.imagePath,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+            ),
+            // Overlay and text appear only when hovered
+            if (_isHovered)
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(
+                      0.7), // Semi-transparent red overlay for debugging
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  'Read more',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _handleHover(bool isHovered) {
+    print("Hover state changed: $isHovered"); // Debugging output
+    setState(() {
+      _isHovered = isHovered;
+    });
   }
 }

@@ -1,40 +1,21 @@
 {
   "project_info": {
-    "project_number": "902656895968",
-    "project_id": "todoapp-5503b",
-    "storage_bucket": "todoapp-5503b.appspot.com"
+    "project_number": "482608032076",
+    "project_id": "herit-3581f",
+    "storage_bucket": "herit-3581f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:902656895968:android:c619f5216cfa5890f01985",
+        "mobilesdk_app_id": "1:482608032076:android:c86342dc3d22b1ebc247e9",
         "android_client_info": {
-          "package_name": "com.example"
+          "package_name": "com.example.herit_homes"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBcyqai9GGj_dsNycN-PmidUx0AUeT-n6I"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:902656895968:android:422952a711b6a13bf01985",
-        "android_client_info": {
-          "package_name": "com.example.firestore"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBcyqai9GGj_dsNycN-PmidUx0AUeT-n6I"
+          "current_key": "AIzaSyAwju851HqnEg21BusLAZrzOzKHidueunM"
         }
       ],
       "services": {

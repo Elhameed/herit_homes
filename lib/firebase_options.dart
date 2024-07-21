@@ -41,47 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAalTJPAUBfC1YQMhoXBSka4pjX-D0Zk6c',
-    appId: '1:902656895968:web:58a073aac1a77658f01985',
-    messagingSenderId: '902656895968',
-    projectId: 'todoapp-5503b',
-    authDomain: 'todoapp-5503b.firebaseapp.com',
-    storageBucket: 'todoapp-5503b.appspot.com',
+    apiKey: 'AIzaSyAGkKHagF3CHlPchrIB9Nz6jINqewIwc-Q',
+    appId: '1:482608032076:web:e37ae57d161c74d9c247e9',
+    messagingSenderId: '482608032076',
+    projectId: 'herit-3581f',
+    authDomain: 'herit-3581f.firebaseapp.com',
+    storageBucket: 'herit-3581f.appspot.com',
+    measurementId: 'G-DZ85Y066C7',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBcyqai9GGj_dsNycN-PmidUx0AUeT-n6I',
-    appId: '1:902656895968:android:c619f5216cfa5890f01985',
-    messagingSenderId: '902656895968',
-    projectId: 'todoapp-5503b',
-    storageBucket: 'todoapp-5503b.appspot.com',
+    apiKey: 'AIzaSyAwju851HqnEg21BusLAZrzOzKHidueunM',
+    appId: '1:482608032076:android:c86342dc3d22b1ebc247e9',
+    messagingSenderId: '482608032076',
+    projectId: 'herit-3581f',
+    storageBucket: 'herit-3581f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBDJbCHimZNhuCJEPH0VaT1L_Pn2BxluUM',
-    appId: '1:902656895968:ios:661c8e559bbcc9f5f01985',
-    messagingSenderId: '902656895968',
-    projectId: 'todoapp-5503b',
-    storageBucket: 'todoapp-5503b.appspot.com',
+    apiKey: 'AIzaSyB2frYup8rzzTnKrJC_W5PkAr0NM46ZB3I',
+    appId: '1:482608032076:ios:a95d1dff16b020abc247e9',
+    messagingSenderId: '482608032076',
+    projectId: 'herit-3581f',
+    storageBucket: 'herit-3581f.appspot.com',
     iosBundleId: 'com.example.heritHomes',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBDJbCHimZNhuCJEPH0VaT1L_Pn2BxluUM',
-    appId: '1:902656895968:ios:661c8e559bbcc9f5f01985',
-    messagingSenderId: '902656895968',
-    projectId: 'todoapp-5503b',
-    storageBucket: 'todoapp-5503b.appspot.com',
+    apiKey: 'AIzaSyB2frYup8rzzTnKrJC_W5PkAr0NM46ZB3I',
+    appId: '1:482608032076:ios:a95d1dff16b020abc247e9',
+    messagingSenderId: '482608032076',
+    projectId: 'herit-3581f',
+    storageBucket: 'herit-3581f.appspot.com',
     iosBundleId: 'com.example.heritHomes',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAalTJPAUBfC1YQMhoXBSka4pjX-D0Zk6c',
-    appId: '1:902656895968:web:58a073aac1a77658f01985',
-    messagingSenderId: '902656895968',
-    projectId: 'todoapp-5503b',
-    authDomain: 'todoapp-5503b.firebaseapp.com',
-    storageBucket: 'todoapp-5503b.appspot.com',
+    apiKey: 'AIzaSyAGkKHagF3CHlPchrIB9Nz6jINqewIwc-Q',
+    appId: '1:482608032076:web:a6bf8ed89d243a20c247e9',
+    messagingSenderId: '482608032076',
+    projectId: 'herit-3581f',
+    authDomain: 'herit-3581f.firebaseapp.com',
+    storageBucket: 'herit-3581f.appspot.com',
+    measurementId: 'G-08YXNV7QLS',
   );
-
 }

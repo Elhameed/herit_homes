@@ -75,9 +75,9 @@ class LocationDetailView extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/select_time_range');
               },
-              child: Text('Book on Viator'),
+              child: Text('Book an accomodation in Lagos'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
+                backgroundColor: Colors.black,
                 foregroundColor: Colors.white,
                 minimumSize: Size(double.infinity, 50),
               ),

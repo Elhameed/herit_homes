@@ -1,0 +1,68 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.aboutyou.dart_packages.sign_in_with_apple-merged_res-11:/values-hu/values-hu.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\1\\.gradle\\caches\\transforms-3\\1227bb32d338e358eff4c5bf5b08270c\\transformed\\core-1.6.0\\res\\values-hu\\values-hu.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "471",
+                        "endColumns": "100",
+                        "endOffsets": "567"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\1\\.gradle\\caches\\transforms-3\\0b4a8416aa8ab7c08a86dc220f81e542\\transformed\\browser-1.5.0\\res\\values-hu\\values-hu.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,151,252,367",
+                        "endColumns": "95,100,114,103",
+                        "endOffsets": "146,247,362,466"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.aboutyou.dart_packages.sign_in_with_apple-mergeReleaseResources-9:/values-hu/values-hu.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\1\\.gradle\\caches\\transforms-3\\1227bb32d338e358eff4c5bf5b08270c\\transformed\\core-1.6.0\\res\\values-hu\\values-hu.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "471",
+                        "endColumns": "100",
+                        "endOffsets": "567"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\1\\.gradle\\caches\\transforms-3\\0b4a8416aa8ab7c08a86dc220f81e542\\transformed\\browser-1.5.0\\res\\values-hu\\values-hu.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,151,252,367",
+                        "endColumns": "95,100,114,103",
+                        "endOffsets": "146,247,362,466"
+                    }
+                }
+            ]
+        }
+    ]
+}

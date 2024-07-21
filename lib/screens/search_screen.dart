@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:herit_homes/screens/add_guests_screen.dart';
+import 'package:herit_homes/screens/select_time_range_screen.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  String? selectedCountry;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,16 +39,24 @@ class SearchScreen extends StatelessWidget {
                   Icon(Icons.search),
                   SizedBox(width: 8),
                   Expanded(
-                    child: DropdownButtonFormField(
+                    child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),
+                      value: selectedCountry,
                       items: [
-                        DropdownMenuItem(child: Text('Nigeria'), value: 'Nigeria'),
-                        DropdownMenuItem(child: Text('Rwanda'), value: 'Rwanda'),
+                        DropdownMenuItem(
+                            child: Text('Nigeria'), value: 'Nigeria'),
+                        DropdownMenuItem(
+                            child: Text('Rwanda'), value: 'Rwanda'),
                         DropdownMenuItem(child: Text('Kenya'), value: 'Kenya'),
                       ],
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          selectedCountry = value;
+                        });
+                      },
+                      isExpanded: true,
                     ),
                   ),
                 ],
@@ -52,56 +69,9 @@ class SearchScreen extends StatelessWidget {
                 crossAxisSpacing: 4,
                 mainAxisSpacing: 4,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/location_details');
-                    },
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/nigeria.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text('Nigeria'),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Expanded(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.asset(
-                            'assets/rwanda.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text('Rwanda'),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Expanded(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.asset(
-                            'assets/kenya.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text('Kenya'),
-                    ],
-                  ),
+                  buildCountryTile('Nigeria', 'assets/nigeria.png'),
+                  buildCountryTile('Rwanda', 'assets/rwanda.png'),
+                  buildCountryTile('Kenya', 'assets/kenya.png'),
                 ],
               ),
             ),
@@ -114,7 +84,22 @@ class SearchScreen extends StatelessWidget {
               ),
               readOnly: true,
               onTap: () {
-                Navigator.pushNamed(context, '/select_time_range');
+                if (selectedCountry != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          SelectTimeRangeScreen(location: selectedCountry!),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Please select a location first.'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
               },
             ),
             SizedBox(height: 20),
@@ -126,7 +111,23 @@ class SearchScreen extends StatelessWidget {
               ),
               readOnly: true,
               onTap: () {
-                Navigator.pushNamed(context, '/add_guests');
+                if (selectedCountry != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddGuestsScreen(
+                          dateRange: "2024-01-01 to 2024-01-07",
+                          location: selectedCountry!),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Please select a location first.'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
               },
             ),
             Spacer(),
@@ -134,13 +135,28 @@ class SearchScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      selectedCountry = null;
+                    });
+                  },
                   child: Text('Clear all'),
                 ),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (selectedCountry != null) {
+                      Navigator.pushNamed(context, '/location_details');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please select a country.'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  },
                   icon: Icon(Icons.search),
-                  label: Text('Search'),
+                  label: Text('Get Details'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     foregroundColor: Colors.white,
@@ -151,6 +167,40 @@ class SearchScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildCountryTile(String countryName, String imagePath) {
+    bool isSelected = selectedCountry == countryName;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedCountry = countryName;
+        });
+      },
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: isSelected
+                    ? Border.all(color: Colors.blue.shade700, width: 4)
+                    : null,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 4),
+          Text(countryName),
+        ],
       ),
     );
   }

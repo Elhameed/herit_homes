@@ -41,14 +41,19 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LaunchScreen(),
         '/getting_started': (context) => GettingStartedScreen(),
-        '/signup_details': (context) => SignupDetailsScreen(),
+        '/signup_details': (context) => SignupScreen(),
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
         '/search': (context) => SearchScreen(),
         '/location_details': (context) => LocationDetailsScreen(),
         '/location_detail_view': (context) => LocationDetailView(),
-        '/select_time_range': (context) => SelectTimeRangeScreen(),
-        '/add_guests': (context) => AddGuestsScreen(),
+        '/select_time_range': (context) => SelectTimeRangeScreen(
+              location: '',
+            ),
+        '/add_guests': (context) => AddGuestsScreen(
+              dateRange: '',
+              location: '',
+            ),
         '/filter_type_of_place': (context) => FiltersTypeOfPlaceScreen(),
         '/filter_facilities': (context) => FiltersFacilitiesScreen(),
         '/house_details': (context) => HouseDetailsScreen(),
