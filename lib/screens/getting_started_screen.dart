@@ -135,9 +135,32 @@ class _GettingStartedScreenState extends State<GettingStartedScreen> {
               children: <Widget>[
                 IconButton(
                     icon: ImageIcon(AssetImage('assets/google_icon.png')),
-                    onPressed: () {}),
-                IconButton(icon: Icon(Icons.apple), onPressed: () {}),
-                IconButton(icon: Icon(Icons.facebook), onPressed: () {}),
+                    iconSize: 35.0,
+                    onPressed: () async {
+                      final _AuthService = FirebaseAuthService();
+                      var user = await _AuthService.signInWithGoogle();
+                      if (user != null) {
+                        Navigator.pushNamed(context, '/home');
+                      }
+                    }),
+                IconButton(
+                    icon: Icon(Icons.apple),
+                    onPressed: () async {
+                      final _AuthService = FirebaseAuthService();
+                      var user = await _AuthService.signInWithApple();
+                      if (user != null) {
+                        Navigator.pushNamed(context, '/home');
+                      }
+                    }),
+                IconButton(
+                    icon: Icon(Icons.facebook),
+                    onPressed: () async {
+                      final _AuthService = FirebaseAuthService();
+                      var user = await _AuthService.signInWithFacebook();
+                      if (user != null) {
+                        Navigator.pushNamed(context, '/home');
+                      }
+                    }),
               ],
             ),
           ],
