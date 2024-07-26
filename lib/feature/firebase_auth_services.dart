@@ -13,13 +13,22 @@ class FirebaseAuthService {
   Future<User?> signUpWithEmailAndPassword(
       String email, String password) async {
     try {
-      UserCredential credential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      return credential.user;
+      var userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: "email@example.com", password: "password");
+      // User registration successful
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'network-request-failed') {
+        // Handle network error
+        print("Check your internet connection and try again.");
+      } else {
+        // Handle other Firebase Auth errors
+        print(e.message);
+      }
     } catch (e) {
-      print("Error occurred: $e");
+      // Handle other errors
+      print("An unexpected error occurred.");
     }
-    return null;
   }
 
   Future<void> updateUserPhoneNumber(String userId, String phone) async {
@@ -48,17 +57,25 @@ class FirebaseAuthService {
   // Google Sign-In
   Future<User?> signInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    if (googleUser != null) {
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final OAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
-      return userCredential.user;
+    try {
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final OAuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
+        return userCredential.user;
+      }
+    } on FirebaseAuthException catch (e) {
+      print("Firebase Auth Exception: ${e.message}");
+      // Handle Firebase-specific errors here
+    } on Exception catch (e) {
+      print("General Exception: $e");
+      // Handle other exceptions that might occur
     }
     return null;
   }
