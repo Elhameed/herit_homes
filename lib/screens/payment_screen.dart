@@ -1,8 +1,18 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
+  final String paymentMethod;
+  final double amount;
+
+  PaymentSuccessScreen({required this.paymentMethod, required this.amount});
+
   @override
   Widget build(BuildContext context) {
+    final String refNumber = _generateRefNumber();
+    final String date = _getCurrentDate();
+    final String time = _getCurrentTime();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -16,9 +26,9 @@ class PaymentSuccessScreen extends StatelessWidget {
             children: [
               SizedBox(
                 height: 100,
-                child: Image.asset('assets/success.png'), 
+                child: Image.asset('assets/success.png'),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
               Text(
                 'Payment success!',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -26,16 +36,19 @@ class PaymentSuccessScreen extends StatelessWidget {
               SizedBox(height: 20),
               Card(
                 elevation: 2,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      InfoRow(label: 'Ref number', value: '00000072697027'),
-                      InfoRow(label: 'Date', value: '09-05-2023'),
-                      InfoRow(label: 'Time', value: '05:40 AM'),
-                      InfoRow(label: 'Payment method', value: 'Credit card'),
-                      InfoRow(label: 'Amount', value: '\$30'),
+                      InfoRow(label: 'Ref number', value: refNumber),
+                      InfoRow(label: 'Date', value: date),
+                      InfoRow(label: 'Time', value: time),
+                      InfoRow(label: 'Payment method', value: paymentMethod),
+                      InfoRow(
+                          label: 'Amount',
+                          value: '\$${(amount + 10).toStringAsFixed(2)}'),
                     ],
                   ),
                 ),
@@ -43,7 +56,7 @@ class PaymentSuccessScreen extends StatelessWidget {
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/Confirm_and_Pay');
+                  Navigator.pushNamed(context, '/view_booking');
                 },
                 child: Text('View booking'),
                 style: ElevatedButton.styleFrom(
@@ -58,6 +71,23 @@ class PaymentSuccessScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _generateRefNumber() {
+    final Random random = Random();
+    final int part1 = random.nextInt(900000000) + 100000000; // 9 digits
+    final int part2 = random.nextInt(900000000) + 100000000; // 9 digits
+    return '$part1$part2';
+  }
+
+  String _getCurrentDate() {
+    final DateTime now = DateTime.now();
+    return '${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}';
+  }
+
+  String _getCurrentTime() {
+    final DateTime now = DateTime.now();
+    return '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')} ${now.hour >= 12 ? 'PM' : 'AM'}';
   }
 }
 

@@ -1,95 +1,160 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class LocationDetailView extends StatelessWidget {
+class LocationDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lagos City Tours'),
+        title: Text('Location Details'),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
       ),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Lagos City Tours',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'By Motley Travels',
-              style: TextStyle(fontSize: 16, color: Colors.blue),
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Icon(Icons.star, color: Colors.green, size: 16),
-                Icon(Icons.star, color: Colors.green, size: 16),
-                Icon(Icons.star, color: Colors.green, size: 16),
-                Icon(Icons.star, color: Colors.green, size: 16),
-                Icon(Icons.star_half, color: Colors.green, size: 16),
-                SizedBox(width: 5),
-                Text('6 reviews', style: TextStyle(color: Colors.blue)),
-              ],
-            ),
-            SizedBox(height: 10),
             Container(
-              height: 200,
+              padding: EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                  image: AssetImage('assets/nigeria_image1.png'),
-                  fit: BoxFit.cover,
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  labelText: 'Location',
                 ),
+                controller: TextEditingController(text: 'Nigeria'),
+                readOnly: true,
               ),
             ),
-            SizedBox(height: 10),
-            Text(
-              'About',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 5),
-            Text(
-              'Explore the vast historic collections at the National museum, walk through a range of Art works at the Nike Art Gallery and...',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'from',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            Text(
-              '\$100.00',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'per adult (price varies by group size)',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/select_time_range');
-              },
-              child: Text('Book an accomodation in Lagos'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                minimumSize: Size(double.infinity, 50),
+            SizedBox(height: 20),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                children: [
+                  ImageTile(
+                    imagePath: 'assets/nigeria_image1.png',
+                    url: 'https://example.com/location1',
+                  ),
+                  ImageTile(
+                    imagePath: 'assets/nigeria_image2.png',
+                    url: 'https://example.com/location2',
+                  ),
+                  ImageTile(
+                    imagePath: 'assets/nigeria_image3.png',
+                    url: 'https://example.com/location3',
+                  ),
+                  ImageTile(
+                    imagePath: 'assets/nigeria_image4.png',
+                    url: 'https://example.com/location4',
+                  ),
+                  ImageTile(
+                    imagePath: 'assets/nigeria_image5.png',
+                    url: 'https://example.com/location5',
+                  ),
+                  ImageTile(
+                    imagePath: 'assets/nigeria_image6.png',
+                    url: 'https://example.com/location6',
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 10),
-            Text(
-              'Lowest price guarantee • Reserve now & pay later • Free cancellation',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text('Clear all'),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: Icon(Icons.search),
+                  label: Text('Search'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    minimumSize: Size(150, 50),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class ImageTile extends StatefulWidget {
+  final String imagePath;
+  final String url;
+
+  ImageTile({required this.imagePath, required this.url});
+
+  @override
+  _ImageTileState createState() => _ImageTileState();
+}
+
+class _ImageTileState extends State<ImageTile> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => _handleHover(true),
+      onExit: (_) => _handleHover(false),
+      child: GestureDetector(
+        onTap: () => _launchURL(widget.url),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                widget.imagePath,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+            ),
+            if (_isHovered)
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  'Read more',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _handleHover(bool isHovered) {
+    setState(() {
+      _isHovered = isHovered;
+    });
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

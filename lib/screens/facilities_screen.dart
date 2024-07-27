@@ -44,7 +44,8 @@ class FacilitiesScreen extends StatelessWidget {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           _buildServiceItem(Icons.local_laundry_service, 'Washer'),
-          _buildServiceItem(Icons.local_laundry_service, 'Free dryer - In unit'),
+          _buildServiceItem(
+              Icons.local_laundry_service, 'Free dryer - In unit'),
           _buildServiceItem(Icons.iron, 'Iron'),
           SizedBox(height: 10),
           Text(
@@ -53,6 +54,18 @@ class FacilitiesScreen extends StatelessWidget {
           ),
           _buildServiceItem(Icons.bathtub, 'Bathtub'),
           _buildServiceItem(Icons.airline_seat_individual_suite, 'Hair dryer'),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/select_time_range');
+            },
+            child: Text('Continue to Booking'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
+              minimumSize: Size(double.infinity, 50),
+            ),
+          ),
         ],
       ),
     );

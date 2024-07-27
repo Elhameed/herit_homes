@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:herit_homes/screens/add_guests_screen.dart';
 import 'package:herit_homes/screens/select_time_range_screen.dart';
 
@@ -168,6 +169,49 @@ class _SearchScreenState extends State<SearchScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.pushNamed(context, '/search');
+          }
+          if (index == 1) {
+            Navigator.pushNamed(context, '/house_details');
+          }
+          if (index == 2) {
+            Navigator.pushNamed(context, '/Confirm_and_Pay');
+          }
+          if (index == 3) {
+            Navigator.pushNamed(context, '/inbox');
+          }
+          if (index == 4) {
+            _showProfileMenu(context);
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(AntDesign.search1),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Feather.heart),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MaterialIcons.book),
+            label: 'Bookings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MaterialCommunityIcons.message),
+            label: 'Inbox',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MaterialIcons.person_outline),
+            label: 'Profile',
+          ),
+        ],
+      ),
     );
   }
 
@@ -202,6 +246,40 @@ class _SearchScreenState extends State<SearchScreen> {
           Text(countryName),
         ],
       ),
+    );
+  }
+
+  void _showProfileMenu(BuildContext context) {
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(100, 500, 100, 0),
+      items: [
+        PopupMenuItem(
+          child: ListTile(
+            title: Text('Dear User!',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            leading: Icon(Icons.account_circle),
+            trailing: Icon(Icons.chevron_right),
+          ),
+        ),
+        PopupMenuItem(
+          child: ListTile(
+            title: Text('Continue'),
+            onTap: () {
+              Navigator.of(context).pop(); // Close the menu
+            },
+          ),
+        ),
+        PopupMenuItem(
+          child: ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/getting_started', (route) => false);
+            },
+          ),
+        ),
+      ],
     );
   }
 }

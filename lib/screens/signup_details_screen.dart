@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:herit_homes/feature/firebase_auth_services.dart';
 import 'package:intl/intl.dart';
-import 'package:herit_homes/firebase_auth_services.dart';
 
 class SignupScreen extends StatefulWidget {
   @override

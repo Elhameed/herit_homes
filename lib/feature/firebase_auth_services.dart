@@ -80,21 +80,43 @@ class FirebaseAuthService {
     return null;
   }
 
-  // Facebook Sign-In
-  Future<User?> signInWithFacebook() async {
-    final LoginResult result = await FacebookAuth.instance.login();
-    if (result.status == LoginStatus.success && result.accessToken != null) {
-      // Assuming the API now requires a different method to get the token
-      // For instance, using `token` directly if it's just been made non-nullable
-      final OAuthCredential facebookCredential =
-          FacebookAuthProvider.credential(result.accessToken!.token);
+// Facebook Sign-In
 
-      final UserCredential userCredential =
-          await _auth.signInWithCredential(facebookCredential);
-      return userCredential.user;
-    } else {
-      // Handle different statuses or log them
-      print("Facebook login failed: ${result.status}");
+  Future<User?> signInWithFacebook() async {
+    try {
+      // Trigger the Facebook authentication flow
+      final LoginResult result = await FacebookAuth.instance.login();
+
+      switch (result.status) {
+        case LoginStatus.success:
+          // Obtain the auth details from the request
+          final AccessToken accessToken = result.accessToken!;
+          final OAuthCredential facebookCredential =
+              FacebookAuthProvider.credential(accessToken.token);
+
+          // Sign in to Firebase with the Facebook credential
+          final UserCredential userCredential = await FirebaseAuth.instance
+              .signInWithCredential(facebookCredential);
+
+          // Return the signed-in user
+          return userCredential.user;
+
+        case LoginStatus.cancelled:
+          print("Facebook login was cancelled by the user.");
+          break;
+
+        case LoginStatus.failed:
+          print("Facebook login failed: ${result.message}");
+          break;
+
+        default:
+          print("Facebook login status: ${result.status}");
+          break;
+      }
+    } on FirebaseAuthException catch (e) {
+      print("Firebase Auth Exception: ${e.message}");
+    } catch (e) {
+      print("General Exception: $e");
     }
     return null;
   }

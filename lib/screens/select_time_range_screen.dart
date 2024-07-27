@@ -43,7 +43,7 @@ class _SelectTimeRangeScreenState extends State<SelectTimeRangeScreen> {
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +90,7 @@ class _SelectTimeRangeScreenState extends State<SelectTimeRangeScreen> {
                 titleCentered: true,
               ),
             ),
-            Spacer(),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

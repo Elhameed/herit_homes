@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class HouseDetailsScreen extends StatelessWidget {
   @override
@@ -91,37 +92,13 @@ class HouseDetailsScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Icon(Icons.wifi),
-                            SizedBox(width: 8),
-                            Text('Wifi', style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
+                        buildFacilityRow(Icons.wifi, 'Wifi'),
                         SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Icon(Icons.kitchen),
-                            SizedBox(width: 8),
-                            Text('Kitchen', style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
+                        buildFacilityRow(Icons.kitchen, 'Kitchen'),
                         SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Icon(Icons.pool),
-                            SizedBox(width: 8),
-                            Text('Pool', style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
+                        buildFacilityRow(Icons.pool, 'Pool'),
                         SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Icon(Icons.grass),
-                            SizedBox(width: 8),
-                            Text('Garden', style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
+                        buildFacilityRow(Icons.grass, 'Garden'),
                       ],
                     ),
                   ),
@@ -144,42 +121,10 @@ class HouseDetailsScreen extends StatelessWidget {
                   Text('4.5/5', style: TextStyle(fontSize: 16)),
                 ],
               ),
-              ListTile(
-                leading: CircleAvatar(
-                    backgroundImage: AssetImage('assets/edwards.png')),
-                title: Text('Jimmy Osin'),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: List.generate(
-                          5,
-                          (index) =>
-                              Icon(Icons.star, color: Colors.yellow, size: 16)),
-                    ),
-                    Text(
-                        'The location was perfect. The house was spacious and clean, and the amenities...'),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: CircleAvatar(
-                    backgroundImage: AssetImage('assets/christy.png')),
-                title: Text('Chris Doe'),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: List.generate(
-                          5,
-                          (index) =>
-                              Icon(Icons.star, color: Colors.yellow, size: 16)),
-                    ),
-                    Text(
-                        'We loved staying here! The place had all the necessary facilities...'),
-                  ],
-                ),
-              ),
+              buildReviewTile('Jimmy Osin', 'assets/edwards.png',
+                  'The location was perfect. The house was spacious and clean, and the amenities...'),
+              buildReviewTile('Chris Doe', 'assets/christy.png',
+                  'We loved staying here! The place had all the necessary facilities...'),
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/reviews');
@@ -191,61 +136,8 @@ class HouseDetailsScreen extends StatelessWidget {
                 'Policies',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'House rules',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Icon(Icons.access_time, size: 16),
-                        SizedBox(width: 8),
-                        Text('Earliest check-in time: 14:00',
-                            style: TextStyle(fontSize: 14)),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Icon(Icons.access_time, size: 16),
-                        SizedBox(width: 8),
-                        Text('Latest check-out time: 12:00',
-                            style: TextStyle(fontSize: 14)),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              buildPolicySection(),
               SizedBox(height: 16),
-              Text(
-                'Checkin policies',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'It\'s always a good idea to confirm the check-in policy directly with the owner/manager before your arrival so that you can...',
-                style: TextStyle(fontSize: 14),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('View more', style: TextStyle(color: Colors.blue)),
-                    Icon(Icons.chevron_right, color: Colors.blue),
-                  ],
-                ),
-              ),
-              Divider(),
               Text(
                 'Description',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -256,8 +148,7 @@ class HouseDetailsScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   image: DecorationImage(
-                    image: AssetImage(
-                        'assets/description.png'), // Replace with actual image URL
+                    image: AssetImage('assets/description.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -283,7 +174,7 @@ class HouseDetailsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'From: \$20/night',
+                    'From: \$40/night',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   ElevatedButton(
@@ -303,6 +194,147 @@ class HouseDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.pushNamed(context, '/search');
+          }
+          if (index == 1) {
+            Navigator.pushNamed(context, '/favorites');
+          }
+          if (index == 2) {
+            Navigator.pushNamed(context, '/Confirm_and_Pay');
+          }
+          if (index == 3) {
+            Navigator.pushNamed(context, '/inbox');
+          }
+          if (index == 4) {
+            _showProfileMenu(context);
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(AntDesign.search1),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Feather.heart),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MaterialIcons.book),
+            label: 'Bookings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MaterialCommunityIcons.message),
+            label: 'Inbox',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MaterialIcons.person_outline),
+            label: 'Profile',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildFacilityRow(IconData icon, String label) {
+    return Row(
+      children: [
+        Icon(icon),
+        SizedBox(width: 8),
+        Text(label, style: TextStyle(fontSize: 16)),
+      ],
+    );
+  }
+
+  Widget buildReviewTile(String name, String imagePath, String review) {
+    return ListTile(
+      leading: CircleAvatar(backgroundImage: AssetImage(imagePath)),
+      title: Text(name),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: List.generate(
+                5, (index) => Icon(Icons.star, color: Colors.yellow, size: 16)),
+          ),
+          Text(review),
+        ],
+      ),
+    );
+  }
+
+  Widget buildPolicySection() {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'House rules',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              Icon(Icons.access_time, size: 16),
+              SizedBox(width: 8),
+              Text('Earliest check-in time: 14:00',
+                  style: TextStyle(fontSize: 14)),
+            ],
+          ),
+          SizedBox(height: 4),
+          Row(
+            children: [
+              Icon(Icons.access_time, size: 16),
+              SizedBox(width: 8),
+              Text('Latest check-out time: 12:00',
+                  style: TextStyle(fontSize: 14)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showProfileMenu(BuildContext context) {
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(100, 500, 100, 0),
+      items: [
+        PopupMenuItem(
+          child: ListTile(
+            title: Text('Dear User!',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            leading: Icon(Icons.account_circle),
+            trailing: Icon(Icons.chevron_right),
+          ),
+        ),
+        PopupMenuItem(
+          child: ListTile(
+            title: Text('Continue'),
+            onTap: () {
+              Navigator.of(context).pop(); // Close the menu
+            },
+          ),
+        ),
+        PopupMenuItem(
+          child: ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/getting_started', (route) => false);
+            },
+          ),
+        ),
+      ],
     );
   }
 }

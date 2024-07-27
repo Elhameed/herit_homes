@@ -38,8 +38,9 @@ dependencies:
   fluttertoast: ^8.2.2
   font_awesome_flutter: ^10.6.0
   google_sign_in: ^6.1.5
-  flutter_facebook_auth: ^3.5.0
+  flutter_facebook_auth: ^3.5.7
   sign_in_with_apple: ^6.1.1
+  url_launcher: ^6.0.20
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -79,6 +80,8 @@ flutter:
     - assets/logo.png
     - assets/nigeria-apartment.png
     - assets/rwanda-apartment.png
+    - assets/uganda-apartment.png
+    - assets/kenya-apartment.png
     - assets/nigeria.png
     - assets/rwanda.png
     - assets/kenya.png
@@ -100,6 +103,7 @@ flutter:
     - assets/success.png
     - assets/country_code.json
     - assets/google_icon.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
