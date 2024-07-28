@@ -167,9 +167,9 @@ Contributions are what make the open source community such an amazing place to l
 
 ## Contact
 
-Ayotunde Adeleke - [a.adeleke@alustudent.com](mailto:a.adeleke@alustudent.com)
-Mariam Azeez - [m.azeez@alustudent.com](mailto:m.azeez@alustudent.com)
-Ajani Abdulhameed - [a.ajani@alustudent.com](mailto:a.ajani@alustudent.com)
+1.  Ayotunde Adeleke - [a.adeleke@alustudent.com](mailto:a.adeleke@alustudent.com)
+2.  Mariam Azeez - [m.azeez@alustudent.com](mailto:m.azeez@alustudent.com)
+3.  Ajani Abdulhameed - [a.ajani@alustudent.com](mailto:a.ajani@alustudent.com)
 
 Project Link: [https://github.com/Elhameed/herit_homes.git](https://github.com/Elhameed/herit_homes.git)
 
