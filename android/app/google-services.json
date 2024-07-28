@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "482608032076",
+    "project_id": "herit-3581f",
+    "storage_bucket": "herit-3581f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482608032076:android:c86342dc3d22b1ebc247e9",
+        "android_client_info": {
+          "package_name": "com.example.herit_homes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwju851HqnEg21BusLAZrzOzKHidueunM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
