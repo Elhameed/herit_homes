@@ -25,9 +25,6 @@ class _ViewMyBookingScreenState extends State<ViewMyBookingScreen> {
   int _selectedPaymentOption = 1; // 1 for 'Pay in full', 2 for 'Pay a part now'
   int _selectedPaymentMethod = 1; // 1 for 'Card', 2 for 'Cash'
   TextEditingController _partPaymentController = TextEditingController();
-  TextEditingController _cardNumberController = TextEditingController();
-  TextEditingController _cardExpiryController = TextEditingController();
-  TextEditingController _cardCVVController = TextEditingController();
   double _totalAmount = 200.0;
   double _partPayment = 0.0;
 
