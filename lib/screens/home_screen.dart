@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:herit_homes/feature/profile_service.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -9,7 +10,187 @@ void main() {
   ));
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+  User? user;
+  String? userFirstName;
+  String? userPhotoUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserDetails();
+  }
+
+  Future<void> _getUserDetails() async {
+    user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      if (user!.providerData.any((info) => info.providerId == 'google.com')) {
+        // For Google sign-in users
+        userFirstName = user!.displayName?.split(' ')[0];
+        userPhotoUrl = user!.photoURL;
+      } else {
+        // For other sign-in methods
+        final userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user!.uid)
+            .get();
+        userFirstName = userDoc.data()?['firstName'];
+        userPhotoUrl = userDoc.data()?['photoUrl'];
+      }
+    } else {
+      userFirstName = 'Client';
+    }
+    setState(() {});
+  }
+
+  void _handleBottomNavigationTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.pushNamed(context, '/search');
+        break;
+      case 1:
+        Navigator.pushNamed(context, '/house_details');
+        break;
+      case 2:
+        Navigator.pushNamed(context, '/Confirm_and_Pay');
+        break;
+      case 3:
+        Navigator.pushNamed(context, '/inbox');
+        break;
+      case 4:
+        _showProfileMenu(context);
+        break;
+    }
+  }
+
+  void _handleLogout() {
+    FirebaseAuth.instance.signOut().then((_) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/getting_started', (route) => false);
+    }).catchError((e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to sign out: $e'),
+        ),
+      );
+    });
+  }
+
+  Future<void> _handleDeleteAccount() async {
+    final confirmDelete = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Confirm Deletion'),
+          content: Text(
+              'Are you sure you want to delete your account? This action cannot be undone.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text('Delete', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmDelete == true) {
+      try {
+        if (user != null) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user!.uid)
+              .delete();
+          await user!.delete();
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/getting_started', (route) => false);
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to delete account: $e'),
+          ),
+        );
+      }
+    }
+  }
+
+  void _showProfileMenu(BuildContext context) {
+    _getUserDetails().then((_) {
+      showMenu(
+        context: context,
+        position: RelativeRect.fromLTRB(100, 500, 100, 0),
+        items: [
+          PopupMenuItem(
+            child: ListTile(
+              title: Text('Dear $userFirstName!',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              leading: GestureDetector(
+                onTap: () async {
+                  final profileService = ProfileService();
+                  await profileService.changeProfilePicture();
+                  // Ensure the user details are updated
+                  await _getUserDetails();
+                  Navigator.of(context).pop(); // Close the menu
+                },
+                child: CircleAvatar(
+                  backgroundImage: userPhotoUrl != null
+                      ? NetworkImage(userPhotoUrl!)
+                      : AssetImage('assets/default_user.png') as ImageProvider,
+                ),
+              ),
+              trailing: Icon(Icons.chevron_right),
+            ),
+          ),
+          PopupMenuItem(
+            child: ListTile(
+              title: Text('Home'),
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/home', (route) => false);
+              },
+            ),
+          ),
+          PopupMenuItem(
+            child: ListTile(
+              title: Text('Continue'),
+              onTap: () {
+                Navigator.of(context).pop(); // Close the menu
+              },
+            ),
+          ),
+          PopupMenuItem(
+            child: ListTile(
+              title: Text('Logout'),
+              onTap: _handleLogout,
+            ),
+          ),
+          PopupMenuItem(
+            child: ListTile(
+              title:
+                  Text('Delete account', style: TextStyle(color: Colors.red)),
+              onTap: _handleDeleteAccount,
+            ),
+          ),
+        ],
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -44,23 +225,8 @@ class HomeScreen extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.purple,
           unselectedItemColor: Colors.purple,
-          onTap: (index) {
-            if (index == 0) {
-              Navigator.pushNamed(context, '/search');
-            }
-            if (index == 1) {
-              Navigator.pushNamed(context, '/house_details');
-            }
-            if (index == 2) {
-              Navigator.pushNamed(context, '/Confirm_and_Pay');
-            }
-            if (index == 3) {
-              Navigator.pushNamed(context, '/inbox');
-            }
-            if (index == 4) {
-              _showProfileMenu(context);
-            }
-          },
+          currentIndex: _currentIndex,
+          onTap: _handleBottomNavigationTap,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(AntDesign.search1),
@@ -85,49 +251,6 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  void _showProfileMenu(BuildContext context) {
-    showMenu(
-      context: context,
-      position: RelativeRect.fromLTRB(100, 500, 100, 0),
-      items: [
-        PopupMenuItem(
-          child: ListTile(
-            title: Text('Dear User!',
-                style: TextStyle(fontWeight: FontWeight.bold)),
-            leading: Icon(Icons.account_circle),
-            trailing: Icon(Icons.chevron_right),
-          ),
-        ),
-        PopupMenuItem(
-          child: ListTile(
-            title: Text('Home'),
-            onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', (route) => false);
-            },
-          ),
-        ),
-        PopupMenuItem(
-          child: ListTile(
-            title: Text('Continue'),
-            onTap: () {
-              Navigator.of(context).pop(); // Close the menu
-            },
-          ),
-        ),
-        PopupMenuItem(
-          child: ListTile(
-            title: Text('Logout'),
-            onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/getting_started', (route) => false);
-            },
-          ),
-        ),
-      ],
     );
   }
 }

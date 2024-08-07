@@ -1,8 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:herit_homes/feature/firebase_auth_services.dart';
 import 'package:intl/intl.dart';
+import 'package:herit_homes/screens/login_screen.dart'; // Import your login screen
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -18,6 +18,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   DateTime? _selectedDate;
   bool _agreedToTOS = false;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -27,23 +28,6 @@ class _SignupScreenState extends State<SignupScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  void registerUser(BuildContext context) async {
-    if (_formKey.currentState!.validate() && _agreedToTOS) {
-      FirebaseAuthService authService = FirebaseAuthService();
-      var user = await authService.signUpWithEmailAndPassword(
-        _emailController.text.trim(),
-        _passwordController.text.trim(),
-      );
-      if (user != null) {
-        Navigator.pushNamed(context, '/login');
-      } else {
-        print('Failed to register user');
-      }
-    } else {
-      print('You must accept the terms and conditions to continue!');
-    }
   }
 
   void _pickDateDialog() async {
@@ -65,6 +49,46 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       _agreedToTOS = newValue ?? false;
     });
+  }
+
+  Future<void> registerUser() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+    String firstName = _firstNameController.text.trim();
+    String lastName = _lastNameController.text.trim();
+
+    final firebaseAuthService = FirebaseAuthService();
+    User? user = await firebaseAuthService.signUpWithEmailAndPassword(
+        email, password, firstName, lastName);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (user != null) {
+      print("User registered successfully!");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User registered successfully!')),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LoginScreen()), // Navigate to login screen
+      );
+    } else {
+      print("Failed to register user.");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to register user.')),
+      );
+    }
   }
 
   @override
@@ -166,8 +190,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 activeColor: Colors.black,
               ),
               ElevatedButton(
-                onPressed: _agreedToTOS ? () => registerUser(context) : null,
-                child: Text('Register'),
+                onPressed: _agreedToTOS
+                    ? _isLoading
+                        ? null
+                        : registerUser
+                    : null,
+                child: _isLoading
+                    ? CircularProgressIndicator(color: Colors.white)
+                    : const Text('Register'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _agreedToTOS ? Colors.black : Colors.grey,
                   foregroundColor: Colors.white,

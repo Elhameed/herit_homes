@@ -11,10 +11,20 @@ class FirebaseAuthService {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<User?> signUpWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String firstName, String lastName) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      if (userCredential.user != null) {
+        await _firestore.collection('users').doc(userCredential.user!.uid).set({
+          'firstName': firstName,
+          'lastName': lastName,
+          'email': email,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+      }
+
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       print("Firebase Auth Exception: ${e.message}");
@@ -66,6 +76,21 @@ class FirebaseAuthService {
         );
         UserCredential userCredential =
             await _auth.signInWithCredential(credential);
+
+        if (userCredential.user != null) {
+          await _firestore
+              .collection('users')
+              .doc(userCredential.user!.uid)
+              .set({
+            'firstName': googleUser.displayName?.split(' ')[0],
+            'lastName': googleUser.displayName?.split(' ').last,
+            'email': googleUser.email,
+            'photoUrl': googleUser.photoUrl,
+            'signInMethod': 'google',
+            'createdAt': FieldValue.serverTimestamp(),
+          }, SetOptions(merge: true));
+        }
+
         return userCredential.user;
       }
     } on FirebaseAuthException catch (e) {
@@ -93,6 +118,21 @@ class FirebaseAuthService {
           final UserCredential userCredential = await FirebaseAuth.instance
               .signInWithCredential(facebookCredential);
 
+          if (userCredential.user != null) {
+            final userData = await FacebookAuth.instance.getUserData();
+            await _firestore
+                .collection('users')
+                .doc(userCredential.user!.uid)
+                .set({
+              'firstName': userData['name']?.split(' ')[0],
+              'lastName': userData['name']?.split(' ').last,
+              'email': userData['email'],
+              'photoUrl': userData['picture']['data']['url'],
+              'signInMethod': 'facebook',
+              'createdAt': FieldValue.serverTimestamp(),
+            }, SetOptions(merge: true));
+          }
+
           // Return the signed-in user
           return userCredential.user;
 
@@ -118,18 +158,34 @@ class FirebaseAuthService {
 
   // Apple Sign-In
   Future<User?> signInWithApple() async {
-    final appleCredential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-    );
-    final OAuthCredential credential = OAuthProvider("apple.com").credential(
-      idToken: appleCredential.identityToken,
-      accessToken: appleCredential.authorizationCode,
-    );
-    final UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
-    return userCredential.user;
+    try {
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      final OAuthCredential credential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        accessToken: appleCredential.authorizationCode,
+      );
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+
+      if (userCredential.user != null) {
+        await _firestore.collection('users').doc(userCredential.user!.uid).set({
+          'firstName': appleCredential.givenName,
+          'lastName': appleCredential.familyName,
+          'email': appleCredential.email,
+          'signInMethod': 'apple',
+          'createdAt': FieldValue.serverTimestamp(),
+        }, SetOptions(merge: true));
+      }
+
+      return userCredential.user;
+    } catch (e) {
+      print("Error signing in with Apple: $e");
+      return null;
+    }
   }
 }

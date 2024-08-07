@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ConfirmAndPayScreen extends StatefulWidget {
   final String location;
@@ -56,6 +58,48 @@ class _ConfirmAndPayScreenState extends State<ConfirmAndPayScreen> {
     _cardExpiryController.dispose();
     _cardCVVController.dispose();
     super.dispose();
+  }
+
+  void _bookNow() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      // Handle the case where the user is not authenticated
+      return;
+    }
+
+    final userName = user.displayName ??
+        'Guest'; // Use a default value if displayName is not set
+
+    final bookingData = {
+      'userId': user.uid,
+      'firstName': userName.split(' ').first, // Extracting the first name
+      'amount': _totalAmount,
+      'location': widget.location,
+      'dateRange': widget.dateRange,
+      'adults': widget.adults,
+      'children': widget.children,
+      'paymentMethod': _selectedPaymentMethod == 1 ? 'Card' : 'Cash',
+      'createdAt': FieldValue.serverTimestamp(),
+    };
+
+    try {
+      await FirebaseFirestore.instance.collection('bookings').add(bookingData);
+      Navigator.pushNamed(
+        context,
+        '/payment_success',
+        arguments: {
+          'paymentMethod': _selectedPaymentMethod == 1 ? 'Card' : 'Cash',
+          'amount': _totalAmount,
+          'location': widget.location,
+          'dateRange': widget.dateRange,
+          'adults': widget.adults,
+          'children': widget.children,
+        },
+      );
+    } catch (e) {
+      // Handle errors (e.g., show an error message to the user)
+      print('Failed to add booking: $e');
+    }
   }
 
   @override
@@ -309,21 +353,7 @@ class _ConfirmAndPayScreenState extends State<ConfirmAndPayScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/payment_success',
-                    arguments: {
-                      'paymentMethod':
-                          _selectedPaymentMethod == 1 ? 'Card' : 'Cash',
-                      'amount': _totalAmount,
-                      'location': widget.location,
-                      'dateRange': widget.dateRange,
-                      'adults': widget.adults,
-                      'children': widget.children,
-                    },
-                  );
-                },
+                onPressed: _bookNow,
                 child: Text('Book now'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,

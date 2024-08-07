@@ -1,8 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // To get the current user ID
+import 'package:herit_homes/firestore_service.dart'; // Import the Firestore service
 
 class ViewMyBookingScreen extends StatefulWidget {
   final String location;
@@ -10,12 +10,13 @@ class ViewMyBookingScreen extends StatefulWidget {
   final int adults;
   final int children;
 
-  ViewMyBookingScreen(
-      {super.key,
-      required this.location,
-      required this.dateRange,
-      required this.adults,
-      required this.children});
+  ViewMyBookingScreen({
+    super.key,
+    required this.location,
+    required this.dateRange,
+    required this.adults,
+    required this.children,
+  });
 
   @override
   _ViewMyBookingScreenState createState() => _ViewMyBookingScreenState();
@@ -27,6 +28,10 @@ class _ViewMyBookingScreenState extends State<ViewMyBookingScreen> {
   TextEditingController _partPaymentController = TextEditingController();
   double _totalAmount = 200.0;
   double _partPayment = 0.0;
+  String _userFirstName = '';
+
+  final FirestoreService _firestoreService = FirestoreService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void _updateTotalAmount() {
     if (_selectedPaymentOption == 2) {
@@ -45,6 +50,50 @@ class _ViewMyBookingScreenState extends State<ViewMyBookingScreen> {
   void initState() {
     super.initState();
     _partPaymentController.addListener(_updateTotalAmount);
+    _fetchUserFirstName();
+  }
+
+  Future<void> _fetchUserFirstName() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      // Retrieve user information from Firestore or another service
+      // For example, if you store user info in a 'users' collection in Firestore:
+      var userDoc = await _firestoreService.getUserById(user.uid);
+      if (userDoc.exists) {
+        setState(() {
+          _userFirstName = userDoc['firstName'] ?? 'User';
+        });
+      }
+    }
+  }
+
+  Future<void> _saveBooking() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      await _firestoreService.saveBooking(
+        userId: user.uid,
+        location: widget.location,
+        dateRange: widget.dateRange,
+        adults: widget.adults,
+        children: widget.children,
+        totalAmount: _totalAmount,
+        firstName: _userFirstName, // Include the user's first name
+      );
+      // Navigate to success screen or notify user
+      Navigator.pushNamed(
+        context,
+        '/payment_success',
+        arguments: {
+          'paymentMethod': _selectedPaymentMethod == 1 ? 'Card' : 'Cash',
+          'amount': _totalAmount,
+        },
+      );
+    } else {
+      // Handle case when user is not logged in
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User not logged in')),
+      );
+    }
   }
 
   @override
@@ -100,7 +149,7 @@ class _ViewMyBookingScreenState extends State<ViewMyBookingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Dates', style: TextStyle(fontSize: 18)),
-                          Text('2024-07-30 to 2024-08-02',
+                          Text(widget.dateRange,
                               style: TextStyle(fontSize: 18)),
                           IconButton(
                               icon: Icon(Icons.edit),
@@ -114,7 +163,8 @@ class _ViewMyBookingScreenState extends State<ViewMyBookingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Guests', style: TextStyle(fontSize: 18)),
-                          Text('2 guest', style: TextStyle(fontSize: 18)),
+                          Text('${widget.adults + widget.children} guests',
+                              style: TextStyle(fontSize: 18)),
                           IconButton(
                               icon: Icon(Icons.edit),
                               onPressed: () {
@@ -177,18 +227,8 @@ class _ViewMyBookingScreenState extends State<ViewMyBookingScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/payment_success',
-                    arguments: {
-                      'paymentMethod':
-                          _selectedPaymentMethod == 1 ? 'Card' : 'Cash',
-                      'amount': _totalAmount, // Ensure _totalAmount is not null
-                    },
-                  );
-                },
-                child: Text('view receipt'),
+                onPressed: _saveBooking, // Updated method
+                child: Text('Save Booking'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
@@ -252,7 +292,7 @@ class _ViewMyBookingScreenState extends State<ViewMyBookingScreen> {
       items: [
         PopupMenuItem(
           child: ListTile(
-            title: Text('Dear User!',
+            title: Text('Dear $_userFirstName!',
                 style: TextStyle(fontWeight: FontWeight.bold)),
             leading: Icon(Icons.account_circle),
             trailing: Icon(Icons.chevron_right),
